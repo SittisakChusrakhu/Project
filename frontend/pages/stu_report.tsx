@@ -23,7 +23,7 @@ import axios, { AxiosResponse } from "axios";
 import { Api } from "./api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CloudUpload, Add, DoNotDisturbOn } from "@mui/icons-material";
+import { CloudUpload, Add, Delete } from "@mui/icons-material";
 import "dayjs/locale/th";
 import dayjs, { Dayjs } from "dayjs";
 import { styled } from "@mui/material/styles";
@@ -161,6 +161,12 @@ export default function CreateProblemPage() {
     }
   };
 
+  const deleteImage = (index:any) => {
+    const updatedImageUrls = [...imageUrls];
+    updatedImageUrls.splice(index, 1);
+    setImageUrls(updatedImageUrls);
+  };
+
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [displayedTags, setDisplayedTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -223,7 +229,6 @@ export default function CreateProblemPage() {
     );
   };
 
-  const [files, setFiles] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
 
@@ -322,43 +327,43 @@ export default function CreateProblemPage() {
                     borderRadius: 3,
                   }}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        component="label"
-                        style={{ marginLeft: 10, marginTop: 10 }}>
-                        <CloudUpload />
-                        Upload
-                        <input
-                          hidden
-                          accept=".jpg,.jpeg,.png*"
-                          id="fileInput"
-                          onChange={upload_multiple_image}
-                          multiple
-                          type="file"
-                          style={{ marginTop: "10px" }}
-                        />
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Grid container spacing={2}>
-                        {imageUrls.map((imageUrl, index) => (
-                          <div>
-                            <IconButton style={{ marginTop: 10,marginLeft:30 }}>
-                              <DoNotDisturbOn />
-                            </IconButton>
-                            <Grid item key={index}>
-                              <img
-                                src={imageUrl}
-                                alt={`Image ${index}`}
-                                width={50}
-                              />
-                          </Grid>
-                          </div>
-                        ))}
-                    </Grid>
-                  </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  component="label"
+                  style={{ marginLeft: 10, marginTop: 10 }}
+                >
+                  <CloudUpload />
+                  Upload
+                  <input
+                    hidden
+                    accept=".jpg,.jpeg,.png*"
+                    id="fileInput"
+                    onChange={upload_multiple_image}
+                    multiple
+                    type="file"
+                    style={{ marginTop: "10px" }}
+                  />
+                </Button>
               </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {imageUrls.map((imageUrl, index) => (
+                    <div key={index}>
+                      <Button
+                        style={{ marginTop: 10, marginLeft: 30 }}
+                        onClick={() => deleteImage(index)}
+                      >
+                        <Delete />
+                      </Button>
+                      <Grid item>
+                        <img src={imageUrl} alt={`Image ${index}`} width={50} />
+                      </Grid>
+                    </div>
+                  ))}
+                </Grid>
+              </Grid>
+            </Grid>
             </Card>
           </Grid>
         </Grid>

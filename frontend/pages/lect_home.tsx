@@ -3,14 +3,10 @@ import {
   Box,
   Typography,
   Card,
-  CardContent,
   Grid,
-  Paper,
-  styled,
 } from "@mui/material";
-import { Button } from "react-bootstrap";
 import NavbarLect from "../components/NavbarLect";
-import styles from "../styles/Home.module.css";
+import styles from '../styles/Home.module.css';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 

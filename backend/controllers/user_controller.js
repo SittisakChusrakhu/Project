@@ -455,7 +455,8 @@ module.exports.createProblem = async function (req, res) {
 
 module.exports.updateProblem = function (req, res) {
   const { id } = req.params;
-  const { pro_title, pro_type, pro_desc,pro_images,tags } = req.body;
+  const { pro_title, pro_type, pro_desc, pro_images,datetime } = req.body;
+
   prisma.Problem.update({
     where: { id: Number(id) },
     data: {
@@ -463,12 +464,14 @@ module.exports.updateProblem = function (req, res) {
       pro_type,
       pro_desc,
       pro_images,
-      tags: { connect: tags },
+      datetime,
     },
   }).then((Problem) => {
     res.json(Problem);
   });
 };
+
+
 
 //tags
 module.exports.getAllTags = async function (req, res) {
